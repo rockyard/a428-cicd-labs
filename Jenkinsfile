@@ -24,7 +24,7 @@ pipeline {
     stage('Manual') {
         steps {
             sh './jenkins/scripts/manual.sh'
-            input: 'Lanjutkan ke tahap Deploy?'
+            input message: 'Lanjutkan ke tahap Deploy?'
         }
     }   
     stage('Deploy') { 
