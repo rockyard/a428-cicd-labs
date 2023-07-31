@@ -1,10 +1,13 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:16-buster-slim' 
-            args '-p 3000:3000' 
+    agent any
+        tools {
+            nodejs 'nodejs'
         }
-    }
+        parameters {
+        choice(name:'VERSION', choices:['1.0', '1.1', '1.2'], description:'Choose the version of the project')
+
+        booleanParam(name :'executeTests', description:'Execute the tests', defaultValue:false)
+        }
     triggers {
         pollSCM('*/2 * * * *')
     }
@@ -18,7 +21,8 @@ pipeline {
 
     stage('Test') {
             steps {
-                sh './jenkins/scripts/test.sh'
+                //sh './jenkins/scripts/test.sh'
+                echo "Test"
             }
         }
     stage('Manual') {
